@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int totalHealth = 3;
-    private int health;
+    public int totalHealth = 10;
+    public int currentHealth;
+
     private Animator _animator;
 
     private void Awake()
     {
-        
+        _animator = GetComponent<Animator>();
     }
-    void Start()
+    private void Start()
     {
-        
+        currentHealth = totalHealth;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown("o"))
+        {
+            TakeDamage(1);
+        }
+    }
+    private void TakeDamage(int damageTaken) {
+        currentHealth -= damageTaken;
+        _animator.SetTrigger("hit");
     }
 }
