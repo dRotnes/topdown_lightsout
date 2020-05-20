@@ -143,8 +143,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeTime: 3
-  activationRate: 1
-  damageRange: 0.08
+  reactivateTime: 2
+  activationRate: 5
+  damageRate: 1.5
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
+  spikeDamage: 4

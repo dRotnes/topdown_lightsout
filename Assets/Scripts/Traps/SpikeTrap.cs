@@ -6,18 +6,15 @@ public class SpikeTrap : MonoBehaviour
 {
     // Start is called before the first frame update
     public float activeTime = 3f;
-    private float _startTime = 0f;
-
+    public float reactivateTime = 2f;
     public float activationRate = 5f;
-    private float nextActivationTime = 0f;
+    public float damageRate = 1.5f;
 
-    public float damageRange = 0.2f;
-    public LayerMask playerLayer;
+    private bool _isActive;
+    private bool _activateAgain = true;
+    private bool _isDamaging;
 
-    private bool _isActivated;
-    private bool _activateAgain;
-
-    public int spikeDamage = 1;
+    public int spikeDamage = 4;
 
     private Animator _animator;
 
@@ -28,18 +25,12 @@ public class SpikeTrap : MonoBehaviour
     void Start()
     {
         _animator.SetBool("canActivate", true);
-        _activateAgain = true;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if(_isActivated == false)
-        { 
-            _startTime += Time.deltaTime;
-
-        }
         if(_activateAgain == false)
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
@@ -49,71 +40,53 @@ public class SpikeTrap : MonoBehaviour
             gameObject.GetComponent<BoxCollider2D>().enabled = true;
         }
 
-        if(_isActivated == true)
-        {
-            Collider2D[] hitArray = Physics2D.OverlapCircleAll(transform.position, damageRange, playerLayer);
-
-            foreach (Collider2D player in hitArray)
-            {
-                StartCoroutine(WaitToDamageAgain(player));
-            }
-        }
-
     }
 
     private void LateUpdate()
     {
-        _animator.SetBool("activated", _isActivated);
+        _animator.SetBool("canActivate", _activateAgain);
+        _animator.SetBool("active", _isActive);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    // Applie Damage part
+    private IEnumerator Damage(Collider2D player)
     {
-        
-        _isActivated = true;
-        _animator.SetBool("activated", true);
-        
+        while(_isDamaging == true)
+        {
+
+            player.GetComponent<PlayerController>().TakeDamage(spikeDamage);
+            yield return new WaitForSeconds(damageRate);
+        }
 
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    //Activation Part
+    private void Activate()
     {
-
-        _isActivated = true;
-        _animator.SetBool("activated", true);
-
+        _isActive = true;
+        _isDamaging = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         StartCoroutine(Desactivate());
     }
-
-    private void OnDrawGizmosSelected()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (transform != null)
-        {
-
-            Gizmos.DrawWireSphere(transform.position, damageRange);
-        }
-    }
-
-    private IEnumerator WaitToDamageAgain(Collider2D player)
-    {
-        player.GetComponent<PlayerController>().TakeDamage(spikeDamage);
-        yield return new WaitForSeconds(5f);
-
+        Activate();
+        StartCoroutine(Damage(collision));
     }
     private IEnumerator WaitToActivateAgain()
     {
-        yield return new WaitForSeconds(2f);
-        _animator.SetBool("canActivate", true);
+        yield return new WaitForSeconds(reactivateTime);
         _activateAgain = true;
     }
     private IEnumerator Desactivate()
     {
-        yield return new WaitForSeconds(2f);
-        _isActivated = false;
-        _animator.SetBool("canActivate", false);
+        _isDamaging = false;
+        yield return new WaitForSeconds(activeTime);
+        _isActive = false;
         _activateAgain = false;
         StartCoroutine(WaitToActivateAgain());
     }

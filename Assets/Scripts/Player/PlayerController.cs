@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask enemyLayers;
 
-    public int totalHealth = 10;
+    public int totalHealth = 100;
     public int currentHealth;
     // Update is called once per frame
 
@@ -133,7 +133,6 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Debug.Log(_isAttacking);
         if (_isAttacking) { rigidbody.velocity = Vector2.zero; }
         rigidbody.velocity = movement * movementSpeed * BASE_SPEED;
 
@@ -176,6 +175,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damageTaken)
     {
+        Debug.Log("hurt");
         currentHealth -= damageTaken;
         animator.SetTrigger("hit");
     }
