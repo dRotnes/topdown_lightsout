@@ -42,7 +42,7 @@ public class FireTrap : MonoBehaviour
             _animator.SetTrigger("active");
             if(_player != null)
             {
-                _player.GetComponent<PlayerController>().TakeDamage(fireDamage);
+                _player.GetComponent<PlayerController>().TakeDamage();
             }
             yield return new WaitForSeconds(activeRate);
             

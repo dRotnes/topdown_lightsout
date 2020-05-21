@@ -14,8 +14,6 @@ public class SpikeTrap : MonoBehaviour
     private bool _activateAgain = true;
     private bool _isDamaging;
 
-    public int spikeDamage = 4;
-
     private Animator _animator;
 
     private void Awake()
@@ -55,7 +53,7 @@ public class SpikeTrap : MonoBehaviour
         while(_isDamaging == true)
         {
 
-            player.GetComponent<PlayerController>().TakeDamage(spikeDamage);
+            player.GetComponent<PlayerController>().TakeDamage();
             yield return new WaitForSeconds(damageRate);
         }
 

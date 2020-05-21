@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     private int _idleType;
     private bool _isAttacking;
     private bool _takeDamage;
+    private bool _isDead;
+    private bool _lifeGained;
+
     private GameObject _selectedAttack;
 
     public float attackRange = 0.5f;
@@ -42,38 +45,35 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask enemyLayers;
 
-    public int totalHealth = 100;
     public int currentHealth;
+    private ParticleSystem heartEffect;
+
     // Update is called once per frame
 
+    private void Awake()
+    {
+        heartEffect = GetComponent<ParticleSystem>();
+    }
     private void Start()
     {
-        currentHealth = totalHealth;
+        currentHealth = 1;
+        heartEffect = GetComponent<ParticleSystem>();
     }
     void Update()
     {
-        GetInputs();
+        
+        if(_isDead == false)
+        {
 
-        if (movement.x > 0.5f) {
-            _idleType = 0;
+            GetInputs();
         }
-        else if (movement.x < -0.5f)
+            
+        
+        if (currentHealth<=0)
         {
-            _idleType = 1;
-        }
-
-        if (movement.y > 0.5f)
-        {
-            _idleType = 2;
-        }
-        else if (movement.y < -0.5f)
-        {
-            _idleType = 3;
-        }
-
-        if (currentHealth <= 0)
-        {
+            
             Die();
+            
         }
 
     }
@@ -93,7 +93,6 @@ public class PlayerController : MonoBehaviour
         }
         movement.Normalize();
 
-        AttackSelection();
 
         if(Time.time >= nextAttack)
         {
@@ -110,13 +109,12 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(movement != Vector2.zero && _isAttacking == false)
+
+        if(movement != Vector2.zero && _isAttacking == false && _isDead == false )
         {
             animator.SetFloat("Horizontal", movement.x);
             animator.SetFloat("Vertical", movement.y);
-            animator.SetInteger("idleType", _idleType);
         }
-        animator.SetFloat("velocity", movement.sqrMagnitude);
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking 1"))
         {
@@ -126,42 +124,52 @@ public class PlayerController : MonoBehaviour
             _isAttacking = false;
         }
 
-        
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Die"))
+        {
+            _isDead = true;
+        }
+        else
+        {
+            _isDead = false;
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Life"))
+        {
+            _lifeGained = true;
+        }
+        else
+        {
+            _lifeGained = false;
+        }
 
-        
+        animator.SetFloat("velocity", movement.sqrMagnitude);
+
 
     }
     private void FixedUpdate()
     {
-        if (_isAttacking) { rigidbody.velocity = Vector2.zero; }
-        rigidbody.velocity = movement * movementSpeed * BASE_SPEED;
-
-    }
-
-    void AttackSelection()
-    {
-        for(int i=0; i<attacksArray.Length;i++)
+        if (_isDead == false)
         {
-
-            if (Input.GetKeyDown(KeyCode.Alpha0 + i + 1)) { 
-        
-                _selectedAttack = attacksArray[i];
-                animator.SetInteger("selectedAttack", i);
+            if (_isAttacking)
+            {
+                rigidbody.velocity = Vector2.zero;
             }
+
+            if (_lifeGained)
+            {
+                rigidbody.velocity = Vector2.zero;
+            }
+
+            rigidbody.velocity = movement * movementSpeed * BASE_SPEED;
+        }
+
+        else{
+            rigidbody.velocity = Vector2.zero;
         }
     }
 
     void Attack()
     {
-        rigidbody.velocity = Vector2.zero;
         animator.SetTrigger("attack");
-
-        Collider2D[] hitArray = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
-        foreach(Collider2D enemy in hitArray)
-        {
-            Debug.Log("IT WORKS" + enemy.name);
-        }
     }
 
     private void OnDrawGizmosSelected()
@@ -173,16 +181,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damageTaken)
+    public void TakeDamage()
     {
         Debug.Log("hurt");
-        currentHealth -= damageTaken;
         animator.SetTrigger("hit");
+        currentHealth -= 1;
     }
 
     private void Die()
     {
-        Destroy(gameObject);
+        animator.SetTrigger("die");
+        GetComponent<BoxCollider2D>().enabled = false;
+        
     }
 
+    public void Fall()
+    {
+        animator.SetTrigger("fall");
+        
+    }
+
+    public void GainHealth(int life)
+    {
+        currentHealth += life;
+        heartEffect.Play();
+    }
 }
