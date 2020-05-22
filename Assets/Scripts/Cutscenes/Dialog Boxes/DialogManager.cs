@@ -9,19 +9,15 @@ public class DialogManager : MonoBehaviour
    
     public float typingSpeed;
     public float timeBetweenPhrases;
-    private bool _canPass;
+
 
     private Queue<string> sentenceQueue;
     public GameObject dialogBox;
+   
 
     public void Awake()
     {
         sentenceQueue = new Queue<string>();
-    }
-    public void Update()
-    {
-
-        
     }
     public void StartDialog(Dialog dialog)
     {
@@ -32,12 +28,10 @@ public class DialogManager : MonoBehaviour
         foreach (string sentence in dialog.sentences)
         {
             sentenceQueue.Enqueue(sentence);
-            Debug.Log(sentence);
         }
-
         StartCoroutine(DisplayNextSentence());
-    }
 
+    }
 
     private IEnumerator DisplayNextSentence()
     {
@@ -51,14 +45,16 @@ public class DialogManager : MonoBehaviour
         textDisplay.text = "";
         string sentence = sentenceQueue.Dequeue();
         
+        FindObjectOfType<AudioManager>().Play("typingSound");
         foreach (char letter in sentence.ToCharArray())
         {
 
             textDisplay.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
+            yield return new WaitForSecondsRealtime(typingSpeed);
 
         }
-        yield return new WaitForSeconds(timeBetweenPhrases);
+        FindObjectOfType<AudioManager>().Stop("typingSound");
+        yield return new WaitForSecondsRealtime(timeBetweenPhrases);
         StartCoroutine(DisplayNextSentence());
 
     }
@@ -66,7 +62,8 @@ public class DialogManager : MonoBehaviour
     private void EndDialog()
     {
         dialogBox.SetActive(false);
-        _canPass = false;
-
+        
     }
+
+  
 }

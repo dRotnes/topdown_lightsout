@@ -10,4 +10,5 @@ public class GodScript : MonoBehaviour
         dialog.GetComponent<DialogTrigger>().TriggerDialog();
     }
 
+
 }
