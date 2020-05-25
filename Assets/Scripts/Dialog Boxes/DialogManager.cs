@@ -9,10 +9,11 @@ public class DialogManager : MonoBehaviour
    
     public float typingSpeed;
     public float timeBetweenPhrases;
+    public GameObject dialogBox;
 
 
     private Queue<string> sentenceQueue;
-    public GameObject dialogBox;
+    private bool _nonTyped;
    
 
     public void Awake()
@@ -32,16 +33,33 @@ public class DialogManager : MonoBehaviour
         if(isTyped == true)
         {
             StartCoroutine(DisplayTyped());
+            _nonTyped = false;
         }
         else
         {
             DisplayNonTyped();
+            _nonTyped = true;
         }
 
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown("return") && _nonTyped)
+        {
+            DisplayNonTyped();
+        }
     }
 
     private void DisplayNonTyped()
     {
+        if (sentenceQueue.Count == 0)
+        {
+            EndDialog();
+            return;
+        }
+        string sentence = sentenceQueue.Dequeue();
+        textDisplay.text = sentence;
+        
 
     }
     private IEnumerator DisplayTyped()
@@ -55,30 +73,23 @@ public class DialogManager : MonoBehaviour
 
         textDisplay.text = "";
         string sentence = sentenceQueue.Dequeue();
-        if (Input.GetKeyDown("return"))
-        {
-            textDisplay.text = sentence;
-        }
-        else
+        
+        FindObjectOfType<AudioManager>().Play("typingSound");
+        foreach (char letter in sentence.ToCharArray())
         {
 
-            FindObjectOfType<AudioManager>().Play("typingSound");
-            foreach (char letter in sentence.ToCharArray())
-            {
+            textDisplay.text += letter;
+            yield return new WaitForSecondsRealtime(typingSpeed);
 
-                textDisplay.text += letter;
-                yield return new WaitForSecondsRealtime(typingSpeed);
-
-            }
-            FindObjectOfType<AudioManager>().Stop("typingSound");
-            yield return new WaitForSecondsRealtime(timeBetweenPhrases);
         }
+        FindObjectOfType<AudioManager>().Stop("typingSound");
+        yield return new WaitForSecondsRealtime(timeBetweenPhrases);
         StartCoroutine(DisplayTyped());
         
 
     }
 
-    private void EndDialog()
+    public void EndDialog()
     {
         dialogBox.SetActive(false);
         

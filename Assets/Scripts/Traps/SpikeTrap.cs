@@ -10,7 +10,7 @@ public class SpikeTrap : MonoBehaviour
     public float activationRate = 5f;
     public float damageRate = 1.5f;
 
-    private bool _isActive;
+    public bool isActive;
     private bool _activateAgain = true;
     private bool _isDamaging;
 
@@ -23,6 +23,7 @@ public class SpikeTrap : MonoBehaviour
     void Start()
     {
         _animator.SetBool("canActivate", true);
+  
     }
 
     // Update is called once per frame
@@ -43,7 +44,7 @@ public class SpikeTrap : MonoBehaviour
     private void LateUpdate()
     {
         _animator.SetBool("canActivate", _activateAgain);
-        _animator.SetBool("active", _isActive);
+        _animator.SetBool("active", isActive);
     }
 
 
@@ -62,7 +63,7 @@ public class SpikeTrap : MonoBehaviour
     //Activation Part
     private void Activate()
     {
-        _isActive = true;
+        isActive = true;
         _isDamaging = true;
     }
 
@@ -88,7 +89,7 @@ public class SpikeTrap : MonoBehaviour
     {
         _isDamaging = false;
         yield return new WaitForSeconds(activeTime);
-        _isActive = false;
+        isActive = false;
         _activateAgain = false;
         StartCoroutine(WaitToActivateAgain());
     }
