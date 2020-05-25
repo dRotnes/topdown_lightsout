@@ -19,7 +19,7 @@ public class DialogManager : MonoBehaviour
     {
         sentenceQueue = new Queue<string>();
     }
-    public void StartDialog(Dialog dialog)
+    public void StartDialog(Dialog dialog, bool isTyped)
     {
         dialogBox.SetActive(true);
         titleDisplay.text = dialog.name;
@@ -29,11 +29,22 @@ public class DialogManager : MonoBehaviour
         {
             sentenceQueue.Enqueue(sentence);
         }
-        StartCoroutine(DisplayNextSentence());
+        if(isTyped == true)
+        {
+            StartCoroutine(DisplayTyped());
+        }
+        else
+        {
+            DisplayNonTyped();
+        }
 
     }
 
-    private IEnumerator DisplayNextSentence()
+    private void DisplayNonTyped()
+    {
+
+    }
+    private IEnumerator DisplayTyped()
     {
        
         if (sentenceQueue.Count == 0)
@@ -44,18 +55,26 @@ public class DialogManager : MonoBehaviour
 
         textDisplay.text = "";
         string sentence = sentenceQueue.Dequeue();
-        
-        FindObjectOfType<AudioManager>().Play("typingSound");
-        foreach (char letter in sentence.ToCharArray())
+        if (Input.GetKeyDown("return"))
+        {
+            textDisplay.text = sentence;
+        }
+        else
         {
 
-            textDisplay.text += letter;
-            yield return new WaitForSecondsRealtime(typingSpeed);
+            FindObjectOfType<AudioManager>().Play("typingSound");
+            foreach (char letter in sentence.ToCharArray())
+            {
 
+                textDisplay.text += letter;
+                yield return new WaitForSecondsRealtime(typingSpeed);
+
+            }
+            FindObjectOfType<AudioManager>().Stop("typingSound");
+            yield return new WaitForSecondsRealtime(timeBetweenPhrases);
         }
-        FindObjectOfType<AudioManager>().Stop("typingSound");
-        yield return new WaitForSecondsRealtime(timeBetweenPhrases);
-        StartCoroutine(DisplayNextSentence());
+        StartCoroutine(DisplayTyped());
+        
 
     }
 

@@ -72,8 +72,12 @@ public class SpikeTrap : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Activate();
-        StartCoroutine(Damage(collision));
+        if(collision.gameObject.layer == 9)
+        {
+            Activate();
+            StartCoroutine(Damage(collision));
+
+        }
     }
     private IEnumerator WaitToActivateAgain()
     {

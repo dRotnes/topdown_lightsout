@@ -35,6 +35,7 @@ public class ArrowTrap : MonoBehaviour
     {
         if(collision.gameObject.layer == 9)
         {
+           
             _shoot = true;
 
         }
