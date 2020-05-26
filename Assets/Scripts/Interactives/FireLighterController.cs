@@ -1,26 +1,53 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+﻿using UnityEngine;
+using UnityEngine.Playables;
 
 public class FireLighterController : MonoBehaviour
 {
-    
-    public GameObject fireLighterOnPrefab;
-    private bool _isOn;
-    public GameObject light;
 
+    public GameObject objectToDesactivate;
+    public GameObject objectToActivate;
+
+    public PlayableDirector timeline;
+
+    private Animator _animator;
+    private bool _isOn;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
     private void OnCollisionStay2D(Collision2D collision)
     {
         
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetKeyDown("c") && _isOn == false)
         {
-            if(_isOn == false)
-            { 
-                Instantiate(fireLighterOnPrefab, transform.position, Quaternion.identity);
-                _isOn = true;
-                light.SetActive(true);
+            _animator.SetTrigger("activate");
+            _isOn = true;
+            if (objectToActivate)
+            {
+                objectToActivate.SetActive(true);
+                
+                if(timeline)
+                    timeline.Play();
             }
+            else if (objectToDesactivate)
+            {
+                objectToDesactivate.SetActive(false);
+                if (timeline)
+                    timeline.Play();
+            }
+
         }
+    }
+
+    public void Desactivate()
+    {
+        _animator.SetTrigger("desactivate");
+        _isOn = false;
+    }
+
+    public bool IsActivated()
+    {
+        return _isOn;
     }
 }

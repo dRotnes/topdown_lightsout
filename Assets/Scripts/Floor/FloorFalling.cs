@@ -25,8 +25,8 @@ public class FloorFalling : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(_isHole == true)
-        { 
+        if (_isHole == true)
+        {
             collision.GetComponent<PlayerController>().Fall();
         }
         else
@@ -40,6 +40,7 @@ public class FloorFalling : MonoBehaviour
         if(_readyToFall == true)
         {
             _animator.SetTrigger("fall");
+            _animator.SetBool("hole", true);
         }
     }
 }

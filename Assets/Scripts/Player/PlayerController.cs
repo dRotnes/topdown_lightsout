@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D rigidbody;
     public Animator animator;
+    public GameObject fireBall;
+    public GameObject playerLight;
 
     public Transform attackPoint;
 
@@ -103,6 +105,22 @@ public class PlayerController : MonoBehaviour
                
             }
 
+        }
+
+        if (Input.GetKeyDown("x"))
+        {
+            if(fireBall.activeSelf == true)
+            {
+                fireBall.SetActive(false);
+                playerLight.SetActive(false);
+
+            }
+            else
+            {
+                fireBall.SetActive(true);
+                playerLight.SetActive(true);
+
+            }
         }
 
     }

@@ -34,4 +34,4 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - Color_D8C65E19: {r: 1.1923774, g: 0.21225567, b: 0, a: 0}
+    - Color_D8C65E19: {r: 1.1764706, g: 0.3764706, b: 0.0627451, a: 0}
