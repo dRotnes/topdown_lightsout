@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5560824026774832884
+--- !u!1 &3362511783235767950
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5560824026774832883}
-  - component: {fileID: 5560824026774832882}
-  - component: {fileID: 5560824026774832885}
-  - component: {fileID: 5560824026774832881}
-  - component: {fileID: 5560824026774832880}
+  - component: {fileID: 7588345650532719295}
+  - component: {fileID: 7702243602425995091}
+  - component: {fileID: 1747018514084757071}
+  - component: {fileID: 7563609019624412894}
+  - component: {fileID: 305112789}
+  - component: {fileID: 305112790}
+  - component: {fileID: 305112791}
   m_Layer: 0
-  m_Name: SpikeTrap
+  m_Name: HatNPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5560824026774832883
+--- !u!4 &7588345650532719295
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5560824026774832884}
+  m_GameObject: {fileID: 3362511783235767950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3944884, y: -6.462084, z: 0}
+  m_LocalPosition: {x: 2.641, y: -6.073, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5560824026774832882
+--- !u!212 &7702243602425995091
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5560824026774832884}
+  m_GameObject: {fileID: 3362511783235767950}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -70,32 +72,32 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1399355737
-  m_SortingLayer: -1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6497772359294774280, guid: 7fe207eb25676b64db93369c89a78461,
+  m_Sprite: {fileID: -7274399695098501729, guid: 4cf8663da055b194e96970a38e7b1140,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.16, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &5560824026774832885
+--- !u!95 &1747018514084757071
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5560824026774832884}
+  m_GameObject: {fileID: 3362511783235767950}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bd890281a53b93a45a59950daf14eb97, type: 2}
+  m_Controller: {fileID: 9100000, guid: a0f28b7b39292664db304c1f3f23b454, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -104,46 +106,72 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!61 &5560824026774832881
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5560824026774832884}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0011495948, y: 0.00083732605}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 0.16, y: 0.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.12431383, y: 0.10423088}
-  m_EdgeRadius: 0
---- !u!114 &5560824026774832880
+--- !u!114 &7563609019624412894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5560824026774832884}
+  m_GameObject: {fileID: 3362511783235767950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe62b51b7723464ca20ebb6e8d07cb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e135b53b31e5ac45abff6e8203a8d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTime: 3
-  reactivateTime: 2
-  activationRate: 5
-  damageRate: 1.5
-  isActive: 0
+  dialog:
+    name: Hat man Jacob
+    sentences:
+    - So, you decided to ignore the sign . Stupid decision.
+  isTyped: 0
+  playOnAwake: 0
+--- !u!58 &305112789
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362511783235767950}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.011855662, y: -0.013562441}
+  serializedVersion: 2
+  m_Radius: 0.12198138
+--- !u!114 &305112790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362511783235767950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e4ee407ea5cf084f9210a3c80d2c909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogs:
+  - {fileID: 7563609019624412894}
+  - {fileID: 305112791}
+  forceCamp: {fileID: 0}
+--- !u!114 &305112791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362511783235767950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e135b53b31e5ac45abff6e8203a8d65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog:
+    name: Hat man Jacob
+    sentences:
+    - 'You followed the sign and went left? '
+    - Good  Call
+  isTyped: 0
+  playOnAwake: 0

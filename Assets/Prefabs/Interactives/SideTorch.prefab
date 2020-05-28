@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1778824818777532395}
   - component: {fileID: 6254228890434522399}
   - component: {fileID: 8908686543001923285}
+  - component: {fileID: 2501613648697400762}
   m_Layer: 0
   m_Name: SideTorch
   m_TagString: Untagged
@@ -69,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1399355737
-  m_SortingLayer: -1
+  m_SortingLayerID: -66549649
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -4676290749143670003, guid: 2069d774055ba374cbdd5aa00f8ef473,
     type: 3}
@@ -103,6 +104,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &2501613648697400762
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132873102139290929}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0166712, y: 0.0029420853}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.08, y: 0.1}
+    newSize: {x: 0.08, y: 0.1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.0466576, y: 0.08431053}
+  m_EdgeRadius: 0
 --- !u!1 &8870984089601318854
 GameObject:
   m_ObjectHideFlags: 0

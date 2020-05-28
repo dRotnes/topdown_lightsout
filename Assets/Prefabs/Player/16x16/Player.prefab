@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1046956164465894893}
   - component: {fileID: 1046956164465894890}
   - component: {fileID: 1046956164465894891}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,6 +174,8 @@ MonoBehaviour:
   attacks: 0000000001000000
   rigidbody: {fileID: 1046956164465894893}
   animator: {fileID: 1046956164465894892}
+  fireBall: {fileID: 1046956165119271167}
+  playerLight: {fileID: 7638040076402741117}
   attackPoint: {fileID: 0}
   attacksArray: []
   projectilePrefab: {fileID: 7664960617827562999, guid: c77665263d763514fb2c68ed7a2caf29,
@@ -193,7 +195,7 @@ GameObject:
   - component: {fileID: 1046956165119271166}
   - component: {fileID: 1046956165119271136}
   - component: {fileID: 1046956165119271137}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046956165119271167}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.084, y: 0.081, z: 0}
+  m_LocalPosition: {x: -0.082, y: 0.081, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1046956164465894894}
@@ -294,7 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6069353721219879052}
   - component: {fileID: 7948390839398638792}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -308,7 +310,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7638040076402741117}
-  m_LocalRotation: {x: -0, y: -0, z: -0.0066542597, w: 0.9999779}
+  m_LocalRotation: {x: -0, y: -0, z: -0.009622083, w: 0.99995375}
   m_LocalPosition: {x: 0.017, y: -0.003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -333,7 +335,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.3
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 0000000071fd1237a78697ac
+  m_ApplyToSortingLayers: 71fd1237a78697ac000000006f8808fc
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -343,7 +345,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1.3554134
+  m_PointLightOuterRadius: 0.761067
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5

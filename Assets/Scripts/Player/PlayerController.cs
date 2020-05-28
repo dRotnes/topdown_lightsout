@@ -222,6 +222,5 @@ public class PlayerController : MonoBehaviour
     public void GainHealth(int life)
     {
         currentHealth += life;
-        heartEffect.Play();
     }
 }

@@ -149,7 +149,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -173670359063950519, guid: 9830b38fd26a0fe41bd0f58a5a5c706a,
     type: 3}
-  m_Color: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -192,9 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40f2a6cb4046b404187ec7f18755b476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToDesactivate: {fileID: 0}
-  objectToActivate: {fileID: 0}
-  timeline: {fileID: 0}
+  puzzleController: {fileID: 0}
+  fireLighterToDesactivate: {fileID: 0}
 --- !u!58 &2948437342149546826
 CircleCollider2D:
   m_ObjectHideFlags: 0

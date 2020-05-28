@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class GlowOnDarkTile : MonoBehaviour
@@ -8,7 +7,7 @@ public class GlowOnDarkTile : MonoBehaviour
     private Animator _animator;
     private bool _isHole = true;
 
-    public bool isAlwaysHole;
+    public bool isAlwaysHole = true;
 
     private void Awake()
     {
