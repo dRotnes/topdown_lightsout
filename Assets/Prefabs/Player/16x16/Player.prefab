@@ -126,7 +126,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &1046956164465894890
 BoxCollider2D:
@@ -176,6 +176,7 @@ MonoBehaviour:
   animator: {fileID: 1046956164465894892}
   fireBall: {fileID: 1046956165119271167}
   playerLight: {fileID: 7638040076402741117}
+  healthUI: {fileID: 0}
   attackPoint: {fileID: 0}
   attacksArray: []
   projectilePrefab: {fileID: 7664960617827562999, guid: c77665263d763514fb2c68ed7a2caf29,
@@ -183,7 +184,7 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
-  currentHealth: 0
+  currentHealth: 3
 --- !u!1 &1046956165119271167
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +311,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7638040076402741117}
-  m_LocalRotation: {x: -0, y: -0, z: -0.009622083, w: 0.99995375}
+  m_LocalRotation: {x: -0, y: -0, z: -0.012579195, w: 0.9999209}
   m_LocalPosition: {x: 0.017, y: -0.003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -345,7 +346,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 0.761067
+  m_PointLightOuterRadius: 0.5433566
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5

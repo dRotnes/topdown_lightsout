@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7588345650532719295}
   - component: {fileID: 7702243602425995091}
   - component: {fileID: 1747018514084757071}
-  - component: {fileID: 7563609019624412894}
   - component: {fileID: 305112789}
   - component: {fileID: 305112790}
+  - component: {fileID: 7563609019624412894}
   - component: {fileID: 305112791}
   m_Layer: 0
   m_Name: HatNPC
@@ -106,24 +106,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7563609019624412894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3362511783235767950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e135b53b31e5ac45abff6e8203a8d65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialog:
-    name: Hat man Jacob
-    sentences:
-    - So, you decided to ignore the sign . Stupid decision.
-  isTyped: 0
-  playOnAwake: 0
 --- !u!58 &305112789
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -156,6 +138,24 @@ MonoBehaviour:
   - {fileID: 7563609019624412894}
   - {fileID: 305112791}
   forceCamp: {fileID: 0}
+--- !u!114 &7563609019624412894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362511783235767950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e135b53b31e5ac45abff6e8203a8d65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog:
+    name: Hat man Jacob
+    sentences:
+    - So, you decided to ignore the sign . Stupid decision.
+  isTyped: 0
+  playOnAwake: 0
 --- !u!114 &305112791
 MonoBehaviour:
   m_ObjectHideFlags: 0

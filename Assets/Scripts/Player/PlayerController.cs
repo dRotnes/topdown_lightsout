@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private bool _takeDamage;
     private bool _isDead;
     private bool _lifeGained;
+    private bool _isInvencible;
 
     private GameObject _selectedAttack;
 
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public GameObject fireBall;
     public GameObject playerLight;
+    public HealthUI healthUI;
 
     public Transform attackPoint;
 
@@ -60,6 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth = 1;
         heartEffect = GetComponent<ParticleSystem>();
+        healthUI.SetHealth(currentHealth);
     }
     void Update()
     {
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour
         {
 
             GetInputs();
+            
         }
             
         
@@ -201,9 +205,15 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage()
     {
-        Debug.Log("hurt");
-        animator.SetTrigger("hit");
-        currentHealth -= 1;
+        if(_isInvencible == false)
+        {
+
+            Debug.Log("hurt");
+            animator.SetTrigger("hit");
+            currentHealth -= 1;
+            healthUI.SetHealth(currentHealth);
+            StartCoroutine(Invencible());
+        }
     }
 
     private void Die()
@@ -222,5 +232,13 @@ public class PlayerController : MonoBehaviour
     public void GainHealth(int life)
     {
         currentHealth += life;
+        healthUI.SetHealth(currentHealth);
+    }
+
+    private IEnumerator Invencible()
+    {
+        _isInvencible = true;
+        yield return new WaitForSeconds(1f);
+        _isInvencible = false;
     }
 }
