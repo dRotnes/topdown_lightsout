@@ -13,6 +13,7 @@ public class FireTrap : MonoBehaviour
     public int activatedTimes = 3;
 
     public int fireDamage = 3;
+    public float trapDamage = 10;
 
     private Animator _animator;
     private Collider2D _player;
@@ -42,7 +43,7 @@ public class FireTrap : MonoBehaviour
             _animator.SetTrigger("active");
             if(_player != null)
             {
-                _player.GetComponent<PlayerController>().TakeDamage();
+                _player.GetComponent<PlayerController>().TakeDamage(trapDamage);
             }
             yield return new WaitForSeconds(activeRate);
             

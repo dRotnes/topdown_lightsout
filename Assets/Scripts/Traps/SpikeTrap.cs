@@ -9,6 +9,7 @@ public class SpikeTrap : MonoBehaviour
     public float reactivateTime = 2f;
     public float activationRate = 5f;
     public float damageRate = 1.5f;
+    public float trapDamage = 10;
 
     public bool isActive;
     private bool _activateAgain = true;
@@ -54,7 +55,7 @@ public class SpikeTrap : MonoBehaviour
         while(_isDamaging == true)
         {
 
-            player.GetComponent<PlayerController>().TakeDamage();
+            player.GetComponent<PlayerController>().TakeDamage(trapDamage);
             yield return new WaitForSeconds(damageRate);
         }
 

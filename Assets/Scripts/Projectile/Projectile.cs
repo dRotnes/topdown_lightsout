@@ -4,25 +4,50 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private float _speed = 1f;
-    public Rigidbody2D rigidbody;
-    private float projectileForce = 2f;
+    public float speed;
+    public int projectileDamage = 1;
+    public float damageRange = 0.8f;
+    public LayerMask playerLayer;
+
+    private Transform _player;
+    private Vector2 _target;
+    private Rigidbody2D _rigidbody;
+
 
     private Animator _animator;
 
-    private void Awake()
+    private void Start()
     {
-        _animator = GetComponent<Animator>();
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
-    }
-    void Start()
-    {
-        rigidbody.AddForce(transform.right * projectileForce, ForceMode2D.Impulse);
+        _target = new Vector2(_player.position.x, _player.position.y);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Update()
     {
-        Debug.Log(collision.collider);
-        _animator.SetTrigger("impact");
+        transform.position = Vector2.MoveTowards(transform.position, _target, speed * Time.deltaTime);
+
+        Collider2D[] hitArray = Physics2D.OverlapCircleAll(transform.position, damageRange, playerLayer);
+
+        Debug.Log(hitArray);
+        foreach (Collider2D collider in hitArray)
+        {
+            /*PlayerController player = collider.gameObject.GetComponent<PlayerController>();
+            player.TakeDamage(1, "projectile");*/
+        }
+
+        if (transform.position.x == _target.x && transform.position.y == _target.y)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (transform != null)
+        {
+
+            Gizmos.DrawWireSphere(transform.position, damageRange);
+        }
     }
 }

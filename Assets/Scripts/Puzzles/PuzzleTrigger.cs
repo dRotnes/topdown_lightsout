@@ -8,18 +8,21 @@ public class PuzzleTrigger: MonoBehaviour
     public List<GameObject> objectsToDesactivate;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (objectsToActivate.Count!=0)
+        if(collision.gameObject.layer == 9)
         {
-            foreach (GameObject gameobject in objectsToActivate)
+            if (objectsToActivate.Count!=0)
             {
-                gameobject.SetActive(true);
+                foreach (GameObject gameobject in objectsToActivate)
+                {
+                    gameobject.SetActive(true);
+                }
             }
-        }
-        else if (objectsToDesactivate.Count != 0)
-        {
-            foreach (GameObject gameobject in objectsToDesactivate)
+            else if (objectsToDesactivate.Count != 0)
             {
-                gameobject.SetActive(false);
+                foreach (GameObject gameobject in objectsToDesactivate)
+                {
+                    gameobject.SetActive(false);
+                }
             }
         }
     }

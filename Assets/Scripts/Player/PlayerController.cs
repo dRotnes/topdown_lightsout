@@ -5,69 +5,40 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Atributes")]
-    public float BASE_SPEED= 1f;
+    public float BASE_SPEED = 1f;
 
-    private int _idleType;
-    private bool _isAttacking;
     private bool _takeDamage;
     private bool _isDead;
     private bool _lifeGained;
     private bool _isInvencible;
-
-    private GameObject _selectedAttack;
-
-    public float attackRange = 0.5f;
-
-    public float attackRate = 1f;
-    private float nextAttack = 0f;
+    private bool _isAttacking;
 
     [Space]
     [Header("Statistics")]
     public Vector2 movement;
     public float movementSpeed;
 
-    public int[] attacks;
 
     [Space]
     [Header("References")]
 
-    public Rigidbody2D rigidbody;
+    public Rigidbody2D _rigidbody;
     public Animator animator;
     public GameObject fireBall;
     public GameObject playerLight;
     public HealthUI healthUI;
+    public GameObject weapon;
+    public SignalSend playerHealthSignal;
+    public FloatValue currentHealth;
 
-    public Transform attackPoint;
 
-    [Space]
-    [Header("Prefabs")]
-    public GameObject[] attacksArray;
-    public GameObject projectilePrefab;
+    /*[Space]
+    [Header("Prefabs")]*/
 
-    [Space]
-    [Header("Layers")]
-
-    public LayerMask enemyLayers;
-
-    public int currentHealth;
-    private ParticleSystem heartEffect;
-
-    // Update is called once per frame
-
-    private void Awake()
-    {
-        heartEffect = GetComponent<ParticleSystem>();
-    }
-    private void Start()
-    {
-        currentHealth = 1;
-        heartEffect = GetComponent<ParticleSystem>();
-        healthUI.SetHealth(currentHealth);
-    }
     void Update()
     {
-        
-        if(_isDead == false)
+
+        if (_isDead == false)
         {
 
             GetInputs();
@@ -75,11 +46,12 @@ public class PlayerController : MonoBehaviour
         }
             
         
-        if (currentHealth<=0)
+        if (currentHealth.RuntimeValue<=0)
         {
             
             Die();
             
+
         }
 
     }
@@ -88,8 +60,9 @@ public class PlayerController : MonoBehaviour
     {
         movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         movementSpeed = Mathf.Clamp(movement.magnitude, 0.0f, 1.0f);
-        
-        if(_isAttacking == true){
+
+        if (_isAttacking == true)
+        {
             movement = Vector2.zero;
         }
 
@@ -98,18 +71,6 @@ public class PlayerController : MonoBehaviour
             movement = Vector2.zero;
         }
         movement.Normalize();
-
-
-        if(Time.time >= nextAttack)
-        {
-            if(Input.GetButtonDown("Fire1")) {
-                _isAttacking = true;
-                Attack();
-                nextAttack = Time.time + 1f / attackRate;
-               
-            }
-
-        }
 
         if (Input.GetKeyDown("x"))
         {
@@ -127,22 +88,28 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown("v")) {
+            animator.SetTrigger("attack");
+           
+        }
+
     }
 
     private void LateUpdate()
     {
 
-        if(movement != Vector2.zero && _isAttacking == false && _isDead == false )
+        if(movement != Vector2.zero && _isDead == false )
         {
             animator.SetFloat("Horizontal", movement.x);
             animator.SetFloat("Vertical", movement.y);
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking 1"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking Right 1"))
         {
             _isAttacking = true;
         }
-        else {
+        else
+        {
             _isAttacking = false;
         }
 
@@ -164,6 +131,7 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetFloat("velocity", movement.sqrMagnitude);
+        
 
 
     }
@@ -173,54 +141,49 @@ public class PlayerController : MonoBehaviour
         {
             if (_isAttacking)
             {
-                rigidbody.velocity = Vector2.zero;
+                _rigidbody.velocity = Vector2.zero;
             }
 
             if (_lifeGained)
             {
-                rigidbody.velocity = Vector2.zero;
+                _rigidbody.velocity = Vector2.zero;
             }
 
-            rigidbody.velocity = movement * movementSpeed * BASE_SPEED;
+            _rigidbody.velocity = movement * movementSpeed * BASE_SPEED;
         }
 
         else{
-            rigidbody.velocity = Vector2.zero;
+            _rigidbody.velocity = Vector2.zero;
         }
     }
 
-    void Attack()
+    public void Attack()
     {
-        animator.SetTrigger("attack");
+        weapon.GetComponent<Weapon>().Attack();
     }
 
-    private void OnDrawGizmosSelected()
+    public void TakeDamage(float damage)
     {
-        if(attackPoint != null)
-        {
 
-            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-        }
-    }
-
-    public void TakeDamage()
-    {
         if(_isInvencible == false)
         {
 
-            Debug.Log("hurt");
             animator.SetTrigger("hit");
-            currentHealth -= 1;
-            healthUI.SetHealth(currentHealth);
+            currentHealth.RuntimeValue -= damage;
+            playerHealthSignal.RaiseSignal();
             StartCoroutine(Invencible());
+            
+             
+            
         }
     }
+
 
     private void Die()
     {
         animator.SetTrigger("die");
         GetComponent<BoxCollider2D>().enabled = false;
-        
+        GetComponent<Rigidbody2D>().Sleep();
     }
 
     public void Fall()
@@ -229,10 +192,20 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    public void GainHealth(int life)
+    public void GainHealth(float life)
     {
-        currentHealth += life;
-        healthUI.SetHealth(currentHealth);
+        if (currentHealth.RuntimeValue + life <= 10)
+        {
+            currentHealth.RuntimeValue += life;
+            playerHealthSignal.RaiseSignal();
+        }
+        else if(currentHealth.RuntimeValue + life > 10)
+        {
+            currentHealth.RuntimeValue = 10;
+            playerHealthSignal.RaiseSignal();
+        }
+        
+
     }
 
     private IEnumerator Invencible()
