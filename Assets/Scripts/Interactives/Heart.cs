@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Heart : MonoBehaviour
+public class Heart : PowerUp
 {
-    public int livesAdded = 10;
-    
+    public FloatValue playerHealth;
+    public FloatValue heartContainer;
+    public float life;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == 9)
+        if(collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerController>().GainHealth(livesAdded);
+            playerHealth.RuntimeValue = heartContainer.RuntimeValue * 2;
+            powerUpSignal.RaiseSignal();
             Destroy(gameObject);
         }
     }

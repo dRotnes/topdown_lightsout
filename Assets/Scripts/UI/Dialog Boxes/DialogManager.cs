@@ -44,7 +44,7 @@ public class DialogManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown("return") && _nonTyped)
+        if (Input.GetKeyDown("space") && _nonTyped)
         {
             DisplayNonTyped();
         }

@@ -133,6 +133,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1046956164465894891, guid: c17f2931675bb4c41869ca08664be13b,
+        type: 3}
+      propertyPath: _rigidbody
+      value: 
+      objectReference: {fileID: 648596694}
+    - target: {fileID: 1046956164465894891, guid: c17f2931675bb4c41869ca08664be13b,
+        type: 3}
+      propertyPath: playerHealthSignal
+      value: 
+      objectReference: {fileID: 11400000, guid: c07851bb330588b48b68b25f3728d629,
+        type: 2}
+    - target: {fileID: 1046956164465894891, guid: c17f2931675bb4c41869ca08664be13b,
+        type: 3}
+      propertyPath: currentHealth
+      value: 
+      objectReference: {fileID: 11400000, guid: 9e67c34077fd4c048a3c79e0a26c1661,
+        type: 2}
     - target: {fileID: 1046956164465894894, guid: c17f2931675bb4c41869ca08664be13b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -188,6 +205,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1046956164465894895, guid: c17f2931675bb4c41869ca08664be13b,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8001241383602388357, guid: f5f1a8a8552ef1c4ebe3341f0a579d3c,
+        type: 3}
     - target: {fileID: 1046956165119271166, guid: c17f2931675bb4c41869ca08664be13b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1811,7 +1834,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1600, y: 900}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.65
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1949,7 +1972,6 @@ GameObject:
   m_Component:
   - component: {fileID: 469958499}
   - component: {fileID: 469958498}
-  - component: {fileID: 469958497}
   m_Layer: 0
   m_Name: God's Second Dialog
   m_TagString: Untagged
@@ -1957,19 +1979,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &469958497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469958496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f8fe0bb91da25a418043fe009bac236, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialog: {fileID: 469958496}
 --- !u!114 &469958498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2085,6 +2094,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 34855425}
   m_PrefabAsset: {fileID: 0}
+--- !u!50 &648596694 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 1046956164465894893, guid: c17f2931675bb4c41869ca08664be13b,
+    type: 3}
+  m_PrefabInstance: {fileID: 34855425}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &648596697 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1046956164465894894, guid: c17f2931675bb4c41869ca08664be13b,
@@ -2170,7 +2185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 685003810}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.32235527, y: 0.00964582, z: 13.053505}
+  m_LocalPosition: {x: -0.32233763, y: 0.00964582, z: 13.053505}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 882202371}
@@ -7741,7 +7756,7 @@ PrefabInstance:
     - target: {fileID: 4706448304942986698, guid: ef011c32e2c9ca74c8cf05e8553a9c6d,
         type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 16777215
+      value: 218103807
       objectReference: {fileID: 0}
     - target: {fileID: 4706448305448743880, guid: ef011c32e2c9ca74c8cf05e8553a9c6d,
         type: 3}
@@ -7751,7 +7766,7 @@ PrefabInstance:
     - target: {fileID: 4706448305448743880, guid: ef011c32e2c9ca74c8cf05e8553a9c6d,
         type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 16777215
+      value: 218103807
       objectReference: {fileID: 0}
     - target: {fileID: 4706448306018485541, guid: ef011c32e2c9ca74c8cf05e8553a9c6d,
         type: 3}

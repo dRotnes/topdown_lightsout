@@ -17,7 +17,7 @@ public class HealthUI : MonoBehaviour
     }
     public void InitHearts()
     {
-        for (int i = 0; i < heartContainer.initialValue; i++)
+        for (int i = 0; i < heartContainer.RuntimeValue; i++)
         {
             hearts[i].gameObject.SetActive(true);
             hearts[i].sprite =fullHeart;

@@ -18,6 +18,7 @@ public class LittleGreyEnemy : Enemy
     private Vector3 _startingPosition;
     private Vector2 _movement;
     private bool _canAttack;
+    private bool _playerDead;
     private void Start()
     {
         _startingPosition = transform.position;
@@ -26,12 +27,18 @@ public class LittleGreyEnemy : Enemy
     }
     private void Update()
     {
+
+        if (_target.GetComponent<PlayerController>().CurrentState() == PlayerState.dead)
+        {
+            _playerDead = true;
+        }
+
         if (health <= 0)
         {
             Die();
         }
 
-        if (isDead)
+        if (isDead || _playerDead)
         {
             GetComponent<Rigidbody2D>().Sleep();
             GetComponent<Collider2D>().enabled = false;
@@ -56,7 +63,7 @@ public class LittleGreyEnemy : Enemy
     }
     private void FixedUpdate()
     {
-        if (!isDead)
+        if (!isDead && !_playerDead)
         {
             CheckingDistance();
 
@@ -111,6 +118,7 @@ public class LittleGreyEnemy : Enemy
             GameObject player = collider.gameObject;
             knockback.Knock(player);
             player.GetComponent<PlayerController>().TakeDamage(attackDamage);
+            
         }
     }
 }

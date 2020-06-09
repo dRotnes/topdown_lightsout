@@ -74,18 +74,43 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     path: weapon_knife
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: -0.0008, y: -0.0182, z: 0}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
+        time: 1.0909091
+        value: {x: 0.0212, y: -0.0182, z: 0}
+        inSlope: {x: Infinity, y: 0, z: 0}
+        outSlope: {x: Infinity, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: weapon_knife/Knife
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 728135977564329410, guid: 09c6ea539f1c5d543a0fccebe273a9d6,
+      value: {fileID: 1018506843813877346, guid: 7827e2de8c129d5429c84f3cff95f3e3,
         type: 3}
     - time: 0.54545456
-      value: {fileID: -4096202697693091763, guid: 09c6ea539f1c5d543a0fccebe273a9d6,
+      value: {fileID: 8322384510989451468, guid: 7827e2de8c129d5429c84f3cff95f3e3,
         type: 3}
     - time: 1.0909091
-      value: {fileID: 1081951167956856594, guid: 09c6ea539f1c5d543a0fccebe273a9d6,
+      value: {fileID: -7791255960756751266, guid: 7827e2de8c129d5429c84f3cff95f3e3,
         type: 3}
     attribute: m_Sprite
     path: 
@@ -106,6 +131,13 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
+      path: 4053281785
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
       path: 2549770317
       attribute: 4
       script: {fileID: 0}
@@ -120,9 +152,9 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 728135977564329410, guid: 09c6ea539f1c5d543a0fccebe273a9d6, type: 3}
-    - {fileID: -4096202697693091763, guid: 09c6ea539f1c5d543a0fccebe273a9d6, type: 3}
-    - {fileID: 1081951167956856594, guid: 09c6ea539f1c5d543a0fccebe273a9d6, type: 3}
+    - {fileID: 1018506843813877346, guid: 7827e2de8c129d5429c84f3cff95f3e3, type: 3}
+    - {fileID: 8322384510989451468, guid: 7827e2de8c129d5429c84f3cff95f3e3, type: 3}
+    - {fileID: -7791255960756751266, guid: 7827e2de8c129d5429c84f3cff95f3e3, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -337,6 +369,90 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
     path: weapon_knife
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -0.0008
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.0909091
+        value: 0.0212
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: weapon_knife/Knife
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -0.0182
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.0909091
+        value: -0.0182
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: weapon_knife/Knife
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.0909091
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: weapon_knife/Knife
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:

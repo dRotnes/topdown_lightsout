@@ -2,43 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine.Playables;
 
-public class FireLighterController : MonoBehaviour
+public class FireLighterController : Interactable
 {
-    public LightPuzzleController puzzleController;
     public GameObject fireLighterToDesactivate;
+    public SignalSend fireOnSignal;
+    public Animator animator;
 
-    private Animator _animator;
-    private bool _isOn;
-    private bool _isActivatable;
-
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
-    }
+    public bool isOn;
 
     private void Update()
     {
-        if(_isOn == false && _isActivatable==true && Input.GetKey("c"))
+        if (isOn == false && playerInRange && Input.GetKey("space"))
         {
-            _animator.SetTrigger("activate");
+            animator.SetTrigger("activate");
             if (fireLighterToDesactivate)
+            {
                 DesactivateOther();
+            }
 
-            puzzleController.updateNumberOfOn(true);
-            _isOn = true;
-            _isActivatable = false;
+            isOn = true;
+
+            fireOnSignal.RaiseSignal();
         }
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.layer == 9)
-            _isActivatable = true;
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == 9)
-            _isActivatable = false;
     }
 
     private void DesactivateOther()
@@ -48,17 +33,16 @@ public class FireLighterController : MonoBehaviour
 
     public void Desactivate()
     {
-        if(_isOn == true)
+        if(isOn == true)
         {
-
-            puzzleController.updateNumberOfOn(false);
-            _isOn = false;
-            _animator.SetTrigger("desactivate");
+            isOn = false;
+            animator.SetTrigger("desactivate");
+            
         }
     }
 
     public bool IsActivated()
     {
-        return _isOn;
+        return isOn;
     }
 }

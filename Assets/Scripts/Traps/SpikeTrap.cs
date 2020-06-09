@@ -70,14 +70,15 @@ public class SpikeTrap : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        StartCoroutine(Desactivate());
+        
+            StartCoroutine(Desactivate());
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == 9)
+        if(collision.CompareTag("FootCollider"))
         {
             Activate();
-            StartCoroutine(Damage(collision));
+            StartCoroutine(Damage(collision.gameObject.transform.parent.gameObject.GetComponent<Collider2D>()));
 
         }
     }

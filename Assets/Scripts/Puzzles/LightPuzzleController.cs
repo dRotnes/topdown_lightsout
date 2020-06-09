@@ -3,67 +3,28 @@ using System.Collections.Generic;
 using UnityEngine.Playables;
 using UnityEngine;
 
-public class LightPuzzleController : MonoBehaviour
+public class LightPuzzleController : Puzzle
 {
     public List<FireLighterController> fireLighterList;
-    public List<GameObject> objectsToDesactivate;
-    public List<GameObject> objectsToActivate;
-    private int numberOfFireLighters;
-    public PlayableDirector timeline;
-
     private int numberOfOn = 0;
 
 
-    private void Start()
-    {
-        numberOfFireLighters = fireLighterList.Count;
-    }
     private void Update()
     {
-        if (numberOfOn == numberOfFireLighters)
+        if (numberOfOn == fireLighterList.Count)
         {
-            if (objectsToActivate.Count != 0)
-            {
-                foreach (GameObject gameobject in objectsToActivate)
-                {
-
-                    gameobject.SetActive(true);
-
-                }
-                if (timeline)
-                    timeline.Play();
-
-            }
-            else if (objectsToDesactivate.Count != 0)
-            {
-                foreach (GameObject gameobject in objectsToDesactivate)
-                {
-
-                    gameobject.SetActive(false);
-                }
-
-            }
-
-            if (timeline)
-                timeline.Play();
-
-            numberOfFireLighters = 0;
-
+            Solved();
+            this.enabled = false;
         }
-
     }
-    public void updateNumberOfOn(bool update)
+    public void updateNumberOfOn()
     {
-
-        if (fireLighterList.Count != 0)
+        numberOfOn = 0;
+        foreach (FireLighterController fireLighter in fireLighterList)
         {
-            if (update == true)
+            if (fireLighter.IsActivated() == true)
             {
-                numberOfOn += 1;
-            }
-            else
-            {
-                numberOfOn -= 1; 
+                numberOfOn++;
             }
         }
     }

@@ -2,33 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chest : MonoBehaviour
+public class Chest : Interactable
 {
-    public Animator animator;
     private bool _canOpen;
     private bool _isOpen;
 
-    public GameObject objectToAppear;
+    public Inventory playerInventory;
+    public Animator animator;
+    public SignalSend raiseItem;
+    public Item item;
 
     private void Update()
     {
-        if(_canOpen && Input.GetKeyDown("space") &&!_isOpen)
+        if(playerInRange && Input.GetKeyDown("space"))
         {
-            Open();
+            if (!_isOpen)
+            {
+
+                Open();
+            }
+            else
+            {
+                chestIsOpen();
+            }
         }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        _canOpen = true;
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        _canOpen = false;
     }
     private void Open()
     {
         animator.SetTrigger("open");
-        Instantiate(objectToAppear, transform.position, Quaternion.identity);
+        playerInventory.currentItem = item;
+        playerInventory.AddItem(playerInventory.currentItem);
+        raiseItem.RaiseSignal();
         _isOpen = true;
+    }
+    private void chestIsOpen()
+    {
+        raiseItem.RaiseSignal();
     }
 }

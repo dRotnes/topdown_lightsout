@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState
+{
+    alive, 
+    dead,
+}
 public class PlayerController : MonoBehaviour
 {
     [Header("Atributes")]
+
+    public PlayerState currentState = PlayerState.alive;
     public float BASE_SPEED = 1f;
 
     private bool _takeDamage;
@@ -12,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private bool _lifeGained;
     private bool _isInvencible;
     private bool _isAttacking;
+    private bool _isInteracting;
 
     [Space]
     [Header("Statistics")]
@@ -26,11 +34,12 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public GameObject fireBall;
     public GameObject playerLight;
-    public HealthUI healthUI;
     public GameObject weapon;
     public SignalSend playerHealthSignal;
     public FloatValue currentHealth;
-
+    public Inventory playerInventory;
+    public SpriteRenderer receivedItemSprite;
+    public Collider2D footCollider;
 
     /*[Space]
     [Header("Prefabs")]*/
@@ -48,7 +57,7 @@ public class PlayerController : MonoBehaviour
         
         if (currentHealth.RuntimeValue<=0)
         {
-            
+            currentState = PlayerState.dead;
             Die();
             
 
@@ -61,12 +70,7 @@ public class PlayerController : MonoBehaviour
         movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         movementSpeed = Mathf.Clamp(movement.magnitude, 0.0f, 1.0f);
 
-        if (_isAttacking == true)
-        {
-            movement = Vector2.zero;
-        }
-
-        if (_takeDamage == true)
+        if (_isAttacking == true || _takeDamage == true || _isInteracting)
         {
             movement = Vector2.zero;
         }
@@ -92,7 +96,7 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("attack");
            
         }
-
+           
     }
 
     private void LateUpdate()
@@ -130,6 +134,7 @@ public class PlayerController : MonoBehaviour
             _lifeGained = false;
         }
 
+        animator.SetBool("receive", _isInteracting);
         animator.SetFloat("velocity", movement.sqrMagnitude);
         
 
@@ -140,11 +145,6 @@ public class PlayerController : MonoBehaviour
         if (_isDead == false)
         {
             if (_isAttacking)
-            {
-                _rigidbody.velocity = Vector2.zero;
-            }
-
-            if (_lifeGained)
             {
                 _rigidbody.velocity = Vector2.zero;
             }
@@ -162,50 +162,58 @@ public class PlayerController : MonoBehaviour
         weapon.GetComponent<Weapon>().Attack();
     }
 
+    public void RaiseItem()
+    {
+        if(playerInventory.currentItem != null)
+        {
+
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("receive"))
+            {
+                Debug.Log("hey");
+                _isInteracting = true;
+                receivedItemSprite.sprite = playerInventory.currentItem.sprite;
+            
+            }
+            else
+            {
+                Debug.Log("hello");
+                _isInteracting = false;
+                receivedItemSprite.sprite = null;
+                playerInventory.currentItem = null;
+            }
+        }
+
+    }
+
     public void TakeDamage(float damage)
     {
 
         if(_isInvencible == false)
         {
 
-            animator.SetTrigger("hit");
             currentHealth.RuntimeValue -= damage;
             playerHealthSignal.RaiseSignal();
+            animator.SetTrigger("hit");
             StartCoroutine(Invencible());
-            
-             
-            
+  
         }
     }
 
 
     private void Die()
     {
+        currentState = PlayerState.dead;
         animator.SetTrigger("die");
         GetComponent<BoxCollider2D>().enabled = false;
         GetComponent<Rigidbody2D>().Sleep();
+        footCollider.enabled = false;
     }
 
     public void Fall()
     {
+        currentState = PlayerState.dead;
         animator.SetTrigger("fall");
         
-    }
-
-    public void GainHealth(float life)
-    {
-        if (currentHealth.RuntimeValue + life <= 10)
-        {
-            currentHealth.RuntimeValue += life;
-            playerHealthSignal.RaiseSignal();
-        }
-        else if(currentHealth.RuntimeValue + life > 10)
-        {
-            currentHealth.RuntimeValue = 10;
-            playerHealthSignal.RaiseSignal();
-        }
-        
-
     }
 
     private IEnumerator Invencible()
@@ -213,5 +221,10 @@ public class PlayerController : MonoBehaviour
         _isInvencible = true;
         yield return new WaitForSeconds(1f);
         _isInvencible = false;
+    }
+
+    public PlayerState CurrentState()
+    {
+        return currentState;
     }
 }
