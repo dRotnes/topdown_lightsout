@@ -6,16 +6,22 @@ public class Puzzle : MonoBehaviour
 {
     public Enemy[] enemies;
     public Door[] doors;
-    public List<GameObject> objectsToActivate;
+    public Trap[] traps;
+    public List<GameObject> objects;
     public PlayableDirector timeline;
+
+    public bool doorCloses;
+    public bool trapActivates;
+    public bool enemiesActivate;
+    public bool activate;
     public void Solved()
     {
-        if (objectsToActivate.Count != 0)
+        if (objects.Count != 0)
         {
-            foreach (GameObject gameobject in objectsToActivate)
+            foreach (GameObject gameobject in objects)
             {
 
-                gameobject.SetActive(true);
+                gameobject.SetActive(activate);
 
             }
             if (timeline)
@@ -39,13 +45,27 @@ public class Puzzle : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            foreach (Enemy enemy in enemies)
+            if (enemiesActivate)
             {
-                enemy.gameObject.SetActive(true);
+
+                foreach (Enemy enemy in enemies)
+                {
+                    enemy.gameObject.SetActive(true);
+                }
             }
-            foreach (Door door in doors)
+            if (doorCloses)
             {
-                door.CloseDoor();
+
+                foreach (Door door in doors)
+                {
+                    door.CloseDoor();
+                }
+            }
+            if(trapActivates){
+                foreach(Trap trap in traps)
+                {
+                    trap.gameObject.SetActive(true);
+                }
             }
         }
     }

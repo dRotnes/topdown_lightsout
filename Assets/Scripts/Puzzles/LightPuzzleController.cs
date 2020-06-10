@@ -14,6 +14,7 @@ public class LightPuzzleController : Puzzle
         if (numberOfOn == fireLighterList.Count)
         {
             Solved();
+
             this.enabled = false;
         }
     }

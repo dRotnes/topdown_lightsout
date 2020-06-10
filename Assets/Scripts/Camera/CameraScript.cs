@@ -9,12 +9,14 @@ public class CameraScript : MonoBehaviour
     public bool boundActive;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        cam.SetActive(true);
-        bounds.SetActive(boundActive);
+        if(collision.CompareTag("Player"))
+            cam.SetActive(true);
+            bounds.SetActive(boundActive);
 
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        cam.SetActive(false);
+        if (collision.CompareTag("Player"))
+            cam.SetActive(false);
     }
 }

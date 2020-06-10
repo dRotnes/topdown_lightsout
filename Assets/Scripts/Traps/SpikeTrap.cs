@@ -2,35 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpikeTrap : MonoBehaviour
+public class SpikeTrap : Trap
 {
-    // Start is called before the first frame update
-    public float activeTime = 3f;
+    
     public float reactivateTime = 2f;
-    public float activationRate = 5f;
     public float damageRate = 1.5f;
-    public float trapDamage = 10;
 
     public bool isActive;
     private bool _activateAgain = true;
     private bool _isDamaging;
 
-    private Animator _animator;
-
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
     void Start()
     {
-        _animator.SetBool("canActivate", true);
-  
+        animator.SetBool("canActivate", true);
+ 
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
         if(_activateAgain == false)
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
@@ -44,8 +39,8 @@ public class SpikeTrap : MonoBehaviour
 
     private void LateUpdate()
     {
-        _animator.SetBool("canActivate", _activateAgain);
-        _animator.SetBool("active", isActive);
+        animator.SetBool("canActivate", _activateAgain);
+        animator.SetBool("active", isActive);
     }
 
 
@@ -60,24 +55,16 @@ public class SpikeTrap : MonoBehaviour
         }
 
     }
-
-    //Activation Part
-    private void Activate()
-    {
-        isActive = true;
-        _isDamaging = true;
-    }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
-        
-            StartCoroutine(Desactivate());
+        StartCoroutine(Desactivate());
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("FootCollider"))
         {
-            Activate();
+            isActive = true;
+            _isDamaging = true;
             StartCoroutine(Damage(collision.gameObject.transform.parent.gameObject.GetComponent<Collider2D>()));
 
         }
