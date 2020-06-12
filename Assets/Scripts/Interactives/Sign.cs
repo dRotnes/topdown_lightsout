@@ -1,31 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Sign : Interactable
 {
     public DialogTrigger dialog;
-    public bool multiple;
+    private bool canDesactivate;
 
-    
-    void Update()
+    private void Update()
     {
         if (playerInRange)
         {
-           
-            if (!multiple)
+            canDesactivate = true;
+            if (Input.GetKeyDown(KeyCode.Space) && dialog.ReturnState() == false)
             {
-                    
                 dialog.TriggerDialog();
-                    
+                Debug.Log(canDesactivate);
             }
-            
+
         }
         else
         {
-            
-            dialog.EndDialog();
-            
+            if (dialog.ReturnState() == true && canDesactivate == true)
+            {
+                dialog.EndDialog();
+                canDesactivate = false;
+                Debug.Log(canDesactivate);
+            }
         }
     }
+  
 }

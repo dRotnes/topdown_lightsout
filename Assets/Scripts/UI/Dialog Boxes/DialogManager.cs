@@ -6,45 +6,38 @@ public class DialogManager : MonoBehaviour
 {
     public TextMeshProUGUI titleDisplay;
     public TextMeshProUGUI textDisplay;
-   
     public float typingSpeed;
     public float timeBetweenPhrases;
     public GameObject dialogBox;
+    private Queue<string> sentenceQueue = new Queue<string>();
+    private bool _currentState;
+    private bool _isTyped;
 
-
-    private Queue<string> sentenceQueue;
-    private bool _nonTyped;
-   
-
-    public void Awake()
+    public void StartDialog(Dialog dialog, bool type)
     {
-        sentenceQueue = new Queue<string>();
-    }
-    public void StartDialog(Dialog dialog, bool isTyped)
-    {
-        dialogBox.SetActive(true);
-        titleDisplay.text = dialog.name;
-        sentenceQueue.Clear();
+        _isTyped = type;
+        if (_currentState == false)
+        {
+            dialogBox.SetActive(true);
+            titleDisplay.text = dialog.name;
+            sentenceQueue.Clear();
 
-        foreach (string sentence in dialog.sentences)
-        {
-            sentenceQueue.Enqueue(sentence);
+            foreach (string sentence in dialog.sentences)
+            {
+                sentenceQueue.Enqueue(sentence);
+            }
+            if (_isTyped == true)
+            {
+                StartCoroutine(DisplayTyped());
+
+            }
         }
-        if(isTyped == true)
-        {
-            StartCoroutine(DisplayTyped());
-            _nonTyped = false;
-        }
-        else
-        {
-            DisplayNonTyped();
-            _nonTyped = true;
-        }
+        _currentState = true;
 
     }
     private void Update()
     {
-        if (Input.GetKeyDown("space") && _nonTyped)
+        if (Input.GetKeyDown("space") && !_isTyped && _currentState)
         {
             DisplayNonTyped();
         }
@@ -58,13 +51,14 @@ public class DialogManager : MonoBehaviour
             return;
         }
         string sentence = sentenceQueue.Dequeue();
+        Debug.Log(sentence);
         textDisplay.text = sentence;
-        
+
 
     }
     private IEnumerator DisplayTyped()
     {
-       
+
         if (sentenceQueue.Count == 0)
         {
             EndDialog();
@@ -73,7 +67,7 @@ public class DialogManager : MonoBehaviour
 
         textDisplay.text = "";
         string sentence = sentenceQueue.Dequeue();
-        
+
         FindObjectOfType<AudioManager>().Play("typingSound");
         foreach (char letter in sentence.ToCharArray())
         {
@@ -85,15 +79,22 @@ public class DialogManager : MonoBehaviour
         FindObjectOfType<AudioManager>().Stop("typingSound");
         yield return new WaitForSecondsRealtime(timeBetweenPhrases);
         StartCoroutine(DisplayTyped());
-        
+
 
     }
 
     public void EndDialog()
     {
+        sentenceQueue.Clear();
+        textDisplay.text = "";
+        titleDisplay.text = "";
+        _currentState = false;
         dialogBox.SetActive(false);
-        
     }
 
-  
+    public bool CurrentState()
+    {
+        return _currentState;
+    }
+
 }

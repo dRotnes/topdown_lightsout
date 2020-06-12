@@ -7,10 +7,6 @@ public class Interactable : MonoBehaviour
     public bool playerInRange;
     public SpriteRenderer sr;
 
-    private void Update()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
