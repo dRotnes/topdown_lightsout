@@ -159,7 +159,7 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
-        weapon.GetComponent<Weapon>().Attack();
+        weapon.GetComponentInChildren<Weapon>().Attack();
     }
 
     public void RaiseItem()
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
 
         if(_isInvencible == false)
         {
-
+            FindObjectOfType<AudioManager>().Play("hit_sound");
             currentHealth.RuntimeValue -= damage;
             playerHealthSignal.RaiseSignal();
             animator.SetTrigger("hit");

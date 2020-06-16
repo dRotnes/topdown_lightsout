@@ -40,7 +40,7 @@ public class Door : Interactable
 
     public void CloseDoor()
     {
-        _isOpen = true;
+        _isOpen = false;
         doorCollider.enabled = true;
         animator.SetBool("isOpen", _isOpen);
     }

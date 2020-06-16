@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5560824026774832883
 Transform:
   m_ObjectHideFlags: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activationRate: 5
   activeTime: 3
-  trapDamage: 0
+  trapDamage: 10
   animator: {fileID: 0}
   reactivateTime: 2
   damageRate: 1.5

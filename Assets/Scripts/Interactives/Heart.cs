@@ -11,6 +11,7 @@ public class Heart : PowerUp
     {
         if(collision.CompareTag("Player"))
         {
+            FindObjectOfType<AudioManager>().Play("powerUp_sound");
             playerHealth.RuntimeValue = heartContainer.RuntimeValue * 2;
             powerUpSignal.RaiseSignal();
             Destroy(gameObject);

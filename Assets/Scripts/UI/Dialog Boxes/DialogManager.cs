@@ -67,11 +67,10 @@ public class DialogManager : MonoBehaviour
 
         textDisplay.text = "";
         string sentence = sentenceQueue.Dequeue();
-
         FindObjectOfType<AudioManager>().Play("typingSound");
         foreach (char letter in sentence.ToCharArray())
         {
-
+           
             textDisplay.text += letter;
             yield return new WaitForSecondsRealtime(typingSpeed);
 

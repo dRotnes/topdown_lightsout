@@ -22,8 +22,9 @@ public class Enemy : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
+        FindObjectOfType<AudioManager>().Play("hit_sound");
         animator.SetTrigger("hit");
-        health -= 1;
+        health -= damage;
     }
     public void Die()
     {

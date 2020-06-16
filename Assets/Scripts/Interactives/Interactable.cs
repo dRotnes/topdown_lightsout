@@ -12,15 +12,19 @@ public class Interactable : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInRange = true;
-            Vector2 distance = sr.gameObject.transform.position  - collision.gameObject.transform.position;
-            if(distance.y < 0)
-            {
-                sr.sortingLayerName= "Front Interactables";
-            }
-            else
-            {
-                sr.sortingLayerName = "Foreground";
-            }
+            
+        }
+    }
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        Vector2 distance = sr.gameObject.transform.position  - collision.gameObject.transform.position;
+        if(distance.y < 0)
+        {
+            sr.sortingLayerName= "Front Interactables";
+        }
+        else
+        {
+            sr.sortingLayerName = "Foreground";
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
